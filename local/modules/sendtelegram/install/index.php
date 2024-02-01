@@ -1,5 +1,8 @@
 <?php
-IncludeModuleLangFile(__FILE__);
+use \Bitrix\Main\Localization\Loc;
+use \Bitrix\Main\ModuleManager;
+
+Loc::loadMessages(__FILE__);
 
 class sendtelegram extends CModule
 {
@@ -9,14 +12,14 @@ class sendtelegram extends CModule
     function __construct()
     {
         $arModuleVersion = [];
-        include(dirname(__FILE__) . "/version.php");
+        include(__DIR__. "/version.php");
         $this->MODULE_VERSION = $arModuleVersion["VERSION"];
         $this->MODULE_VERSION_DATE = $arModuleVersion["VERSION_DATE"];
-        $this->MODULE_NAME = GetMessage("sendtelegram_MODULE_NAME");
-        $this->MODULE_DESCRIPTION = GetMessage("sendtelegram_MODULE_DESC");
+        $this->MODULE_NAME = Loc::getMessage("sendtelegram_MODULE_NAME");
+        $this->MODULE_DESCRIPTION = Loc::getMessage("sendtelegram_MODULE_DESC");
 
-        $this->PARTNER_NAME = GetMessage("nan.mail_PARTNER_NAME");
-        $this->PARTNER_URI = GetMessage("nan.mail_PARTNER_URI");
+        $this->PARTNER_NAME = Loc::getMessage("nan.mail_PARTNER_NAME");
+        $this->PARTNER_URI = Loc::getMessage("nan.mail_PARTNER_URI");
     }
 
     function InstallDB(): bool
@@ -60,14 +63,14 @@ class sendtelegram extends CModule
     {
         $this->InstallFiles();
         $this->InstallDB();
-        RegisterModule($this->MODULE_ID);
+		ModuleManager::registerModule($this->MODULE_ID);
     }
 
     function DoUninstall() :void
     {
         $this->UnInstallDB();
         $this->UnInstallFiles();
-        UnRegisterModule($this->MODULE_ID);
+		ModuleManager::unRegisterModule($this->MODULE_ID);
     }
 }
 

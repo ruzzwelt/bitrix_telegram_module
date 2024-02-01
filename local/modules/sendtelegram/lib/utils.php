@@ -1,7 +1,7 @@
 <?php
 namespace Bitrix\sendtelegram;
 
-class Utils{
+class utils{
     public static function doany(){
         echo "hhhh";
     }
